@@ -4,21 +4,26 @@ import Instruction exposing (Instruction(..))
 import Parser exposing (..)
 
 
+
+-- Entry point for parsing a program
+
+
 read : String -> Result (List DeadEnd) (List Instruction)
 read input =
     run programParser input
 
 
+
+-- Top-level parser for a list of instructions
+
+
 programParser : Parser (List Instruction)
 programParser =
-    sequence
-        { start = "["
-        , separator = ","
-        , end = "]"
-        , spaces = spaces
-        , item = instructionParser
-        , trailing = Optional
-        }
+    bracketed (Parser.lazy (\_ -> instructionParser))
+
+
+
+-- Parser for a single instruction
 
 
 instructionParser : Parser Instruction
@@ -31,6 +36,10 @@ instructionParser =
         ]
 
 
+
+-- Parser for the "Repeat" instruction
+
+
 repeatParser : Parser Instruction
 repeatParser =
     succeed Repeat
@@ -38,19 +47,27 @@ repeatParser =
         |. spaces
         |= int
         |. spaces
-        |= lazy (\_ -> bracketed programParser)
+        |= programParser
 
 
-bracketed : Parser (List a) -> Parser (List a)
-bracketed parser =
-    symbol "["
-        -- Parse the opening bracket
-        |> andThen
-            (\_ ->
-                parser
-                    |. symbol "]"
-             -- Parse the closing bracket
-            )
+
+-- Parser for a list of items within brackets
+
+
+bracketed : Parser a -> Parser (List a)
+bracketed p =
+    Parser.sequence
+        { start = "["
+        , separator = ","
+        , end = "]"
+        , spaces = spaces
+        , item = p
+        , trailing = Optional
+        }
+
+
+
+-- Parser for the "Forward" instruction
 
 
 forwardParser : Parser Instruction
@@ -61,6 +78,10 @@ forwardParser =
         |= int
 
 
+
+-- Parser for the "Left" instruction
+
+
 leftParser : Parser Instruction
 leftParser =
     succeed LeftTurn
@@ -69,12 +90,20 @@ leftParser =
         |= int
 
 
+
+-- Parser for the "Right" instruction
+
+
 rightParser : Parser Instruction
 rightParser =
     succeed RightTurn
         |. token "Right"
         |. spaces
         |= int
+
+
+
+-- Parser for spaces and tabs
 
 
 spaces : Parser ()
