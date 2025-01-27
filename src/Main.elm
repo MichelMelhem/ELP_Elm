@@ -10,6 +10,13 @@ import Parser exposing (..)
 import TurtleParser
 
 
+
+{--
+Example of a working input
+ [Repeat 2 [Forward 100, LeftTurn 90, Forward 50, LeftTurn 90], Forward 20, Repeat 36 [Forward 5, RightTurn 10], Forward 60, Repeat 36 [Forward 5, RightTurn 10]] 
+ --}
+
+
 type alias Model =
     { input : String
     , program : Result String (List Instruction)

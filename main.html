@@ -6048,7 +6048,7 @@ var $author$project$TurtleParser$leftParser = A2(
 		A2(
 			$elm$parser$Parser$ignorer,
 			$elm$parser$Parser$succeed($author$project$Instruction$LeftTurn),
-			$elm$parser$Parser$token('Left')),
+			$elm$parser$Parser$token('LeftTurn')),
 		$author$project$TurtleParser$spaces),
 	$elm$parser$Parser$int);
 var $elm$parser$Parser$oneOf = $elm$parser$Parser$Advanced$oneOf;
@@ -6062,7 +6062,7 @@ var $author$project$TurtleParser$rightParser = A2(
 		A2(
 			$elm$parser$Parser$ignorer,
 			$elm$parser$Parser$succeed($author$project$Instruction$RightTurn),
-			$elm$parser$Parser$token('Right')),
+			$elm$parser$Parser$token('RightTurn')),
 		$author$project$TurtleParser$spaces),
 	$elm$parser$Parser$int);
 function $author$project$TurtleParser$cyclic$instructionParser() {
@@ -6207,15 +6207,6 @@ var $author$project$Main$InputChanged = function (a) {
 };
 var $author$project$Main$Parse = {$: 'Parse'};
 var $elm$html$Html$button = _VirtualDom_node('button');
-var $avh4$elm_color$Color$RgbaSpace = F4(
-	function (a, b, c, d) {
-		return {$: 'RgbaSpace', a: a, b: b, c: c, d: d};
-	});
-var $avh4$elm_color$Color$black = A4($avh4$elm_color$Color$RgbaSpace, 0 / 255, 0 / 255, 0 / 255, 1.0);
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$Core$Branch = function (a) {
-	return {$: 'Branch', a: a};
-};
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$branch = $mrdimosthenis$turtle_graphics$TurtleGraphics$Core$Branch;
 var $elm$core$List$append = F2(
 	function (xs, ys) {
 		if (!ys.b) {
@@ -6232,691 +6223,222 @@ var $elm$core$List$concatMap = F2(
 		return $elm$core$List$concat(
 			A2($elm$core$List$map, f, list));
 	});
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$Core$Move = function (a) {
-	return {$: 'Move', a: a};
-};
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$move = $mrdimosthenis$turtle_graphics$TurtleGraphics$Core$Move;
-var $elm$core$List$repeatHelp = F3(
-	function (result, n, value) {
-		repeatHelp:
-		while (true) {
-			if (n <= 0) {
-				return result;
-			} else {
-				var $temp$result = A2($elm$core$List$cons, value, result),
-					$temp$n = n - 1,
-					$temp$value = value;
-				result = $temp$result;
-				n = $temp$n;
-				value = $temp$value;
-				continue repeatHelp;
-			}
-		}
-	});
-var $elm$core$List$repeat = F2(
-	function (n, value) {
-		return A3($elm$core$List$repeatHelp, _List_Nil, n, value);
-	});
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$Core$Turn = function (a) {
-	return {$: 'Turn', a: a};
-};
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$turn = $mrdimosthenis$turtle_graphics$TurtleGraphics$Core$Turn;
-var $author$project$Drawing$instructionToCommands = function (instruction) {
-	switch (instruction.$) {
-		case 'Forward':
-			var distance = instruction.a;
-			return (distance > 0) ? _List_fromArray(
-				[
-					$mrdimosthenis$turtle_graphics$TurtleGraphics$move(distance)
-				]) : _List_Nil;
-		case 'LeftTurn':
-			var angle = instruction.a;
-			return (angle > 0) ? _List_fromArray(
-				[
-					$mrdimosthenis$turtle_graphics$TurtleGraphics$turn(angle)
-				]) : _List_Nil;
-		case 'RightTurn':
-			var angle = instruction.a;
-			return (angle > 0) ? _List_fromArray(
-				[
-					$mrdimosthenis$turtle_graphics$TurtleGraphics$turn(-angle)
-				]) : _List_Nil;
-		default:
-			var n = instruction.a;
-			var children = instruction.b;
-			var childCommands = A2($elm$core$List$concatMap, $author$project$Drawing$instructionToCommands, children);
-			var repeatedCommand = $mrdimosthenis$turtle_graphics$TurtleGraphics$branch(childCommands);
-			return A2($elm$core$List$repeat, n, repeatedCommand);
-	}
-};
-var $elm_community$typed_svg$TypedSvg$Types$Fill = function (a) {
-	return {$: 'Fill', a: a};
-};
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$Core$adjustLinesToEdges = F2(
-	function (edges, lines) {
-		var _v0 = edges;
-		var minX = _v0.minX;
-		var minY = _v0.minY;
-		return A2(
-			$elm$core$List$map,
-			function (line) {
-				var start = line.start;
-				var end = line.end;
-				var _v1 = start;
-				var startX = _v1.a;
-				var startY = _v1.b;
-				var _v2 = end;
-				var endX = _v2.a;
-				var endY = _v2.b;
-				return _Utils_update(
-					line,
-					{
-						end: _Utils_Tuple2(endX - minX, endY - minY),
-						start: _Utils_Tuple2(startX - minX, startY - minY)
-					});
-			},
-			lines);
-	});
-var $elm$virtual_dom$VirtualDom$attribute = F2(
-	function (key, value) {
-		return A2(
-			_VirtualDom_attribute,
-			_VirtualDom_noOnOrFormAction(key),
-			_VirtualDom_noJavaScriptOrHtmlUri(value));
-	});
-var $elm_community$typed_svg$TypedSvg$Core$attribute = $elm$virtual_dom$VirtualDom$attribute;
-var $elm$core$Basics$composeL = F3(
-	function (g, f, x) {
-		return g(
-			f(x));
-	});
-var $elm$core$String$concat = function (strings) {
-	return A2($elm$core$String$join, '', strings);
-};
-var $elm$core$String$fromFloat = _String_fromNumber;
-var $elm$core$Basics$round = _Basics_round;
-var $avh4$elm_color$Color$toCssString = function (_v0) {
-	var r = _v0.a;
-	var g = _v0.b;
-	var b = _v0.c;
-	var a = _v0.d;
-	var roundTo = function (x) {
-		return $elm$core$Basics$round(x * 1000) / 1000;
-	};
-	var pct = function (x) {
-		return $elm$core$Basics$round(x * 10000) / 100;
-	};
-	return $elm$core$String$concat(
-		_List_fromArray(
-			[
-				'rgba(',
-				$elm$core$String$fromFloat(
-				pct(r)),
-				'%,',
-				$elm$core$String$fromFloat(
-				pct(g)),
-				'%,',
-				$elm$core$String$fromFloat(
-				pct(b)),
-				'%,',
-				$elm$core$String$fromFloat(
-				roundTo(a)),
-				')'
-			]));
-};
-var $elm_community$typed_svg$TypedSvg$TypesToStrings$fillToString = function (fill) {
-	if (fill.$ === 'Fill') {
-		var color = fill.a;
-		return $avh4$elm_color$Color$toCssString(color);
+var $elm$core$List$maximum = function (list) {
+	if (list.b) {
+		var x = list.a;
+		var xs = list.b;
+		return $elm$core$Maybe$Just(
+			A3($elm$core$List$foldl, $elm$core$Basics$max, x, xs));
 	} else {
-		return 'none';
+		return $elm$core$Maybe$Nothing;
 	}
 };
-var $elm_community$typed_svg$TypedSvg$Attributes$fill = A2(
-	$elm$core$Basics$composeL,
-	$elm_community$typed_svg$TypedSvg$Core$attribute('fill'),
-	$elm_community$typed_svg$TypedSvg$TypesToStrings$fillToString);
-var $elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString = function (length) {
-	switch (length.$) {
-		case 'Cm':
-			var x = length.a;
-			return $elm$core$String$fromFloat(x) + 'cm';
-		case 'Em':
-			var x = length.a;
-			return $elm$core$String$fromFloat(x) + 'em';
-		case 'Ex':
-			var x = length.a;
-			return $elm$core$String$fromFloat(x) + 'ex';
-		case 'In':
-			var x = length.a;
-			return $elm$core$String$fromFloat(x) + 'in';
-		case 'Mm':
-			var x = length.a;
-			return $elm$core$String$fromFloat(x) + 'mm';
-		case 'Num':
-			var x = length.a;
-			return $elm$core$String$fromFloat(x);
-		case 'Pc':
-			var x = length.a;
-			return $elm$core$String$fromFloat(x) + 'pc';
-		case 'Percent':
-			var x = length.a;
-			return $elm$core$String$fromFloat(x) + '%';
-		case 'Pt':
-			var x = length.a;
-			return $elm$core$String$fromFloat(x) + 'pt';
-		default:
-			var x = length.a;
-			return $elm$core$String$fromFloat(x) + 'px';
-	}
-};
-var $elm_community$typed_svg$TypedSvg$Attributes$height = function (length) {
-	return A2(
-		$elm_community$typed_svg$TypedSvg$Core$attribute,
-		'height',
-		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
-};
-var $elm_community$typed_svg$TypedSvg$Types$Px = function (a) {
-	return {$: 'Px', a: a};
-};
-var $elm_community$typed_svg$TypedSvg$Types$px = $elm_community$typed_svg$TypedSvg$Types$Px;
-var $elm_community$typed_svg$TypedSvg$Attributes$InPx$height = function (value) {
-	return $elm_community$typed_svg$TypedSvg$Attributes$height(
-		$elm_community$typed_svg$TypedSvg$Types$px(value));
-};
-var $elm$virtual_dom$VirtualDom$nodeNS = F2(
-	function (namespace, tag) {
-		return A2(
-			_VirtualDom_nodeNS,
-			namespace,
-			_VirtualDom_noScript(tag));
-	});
-var $elm_community$typed_svg$TypedSvg$Core$node = $elm$virtual_dom$VirtualDom$nodeNS('http://www.w3.org/2000/svg');
-var $elm_community$typed_svg$TypedSvg$line = $elm_community$typed_svg$TypedSvg$Core$node('line');
-var $elm$core$Tuple$second = function (_v0) {
-	var y = _v0.b;
-	return y;
-};
-var $elm_community$typed_svg$TypedSvg$Attributes$stroke = function (col) {
-	return A2(
-		$elm_community$typed_svg$TypedSvg$Core$attribute,
-		'stroke',
-		$avh4$elm_color$Color$toCssString(col));
-};
-var $elm_community$typed_svg$TypedSvg$Attributes$strokeWidth = function (length) {
-	return A2(
-		$elm_community$typed_svg$TypedSvg$Core$attribute,
-		'stroke-width',
-		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
-};
-var $elm_community$typed_svg$TypedSvg$Attributes$InPx$strokeWidth = function (value) {
-	return $elm_community$typed_svg$TypedSvg$Attributes$strokeWidth(
-		$elm_community$typed_svg$TypedSvg$Types$px(value));
-};
-var $elm_community$typed_svg$TypedSvg$Attributes$x1 = function (position) {
-	return A2(
-		$elm_community$typed_svg$TypedSvg$Core$attribute,
-		'x1',
-		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(position));
-};
-var $elm_community$typed_svg$TypedSvg$Attributes$InPx$x1 = function (value) {
-	return $elm_community$typed_svg$TypedSvg$Attributes$x1(
-		$elm_community$typed_svg$TypedSvg$Types$px(value));
-};
-var $elm_community$typed_svg$TypedSvg$Attributes$x2 = function (position) {
-	return A2(
-		$elm_community$typed_svg$TypedSvg$Core$attribute,
-		'x2',
-		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(position));
-};
-var $elm_community$typed_svg$TypedSvg$Attributes$InPx$x2 = function (value) {
-	return $elm_community$typed_svg$TypedSvg$Attributes$x2(
-		$elm_community$typed_svg$TypedSvg$Types$px(value));
-};
-var $elm_community$typed_svg$TypedSvg$Attributes$y1 = function (position) {
-	return A2(
-		$elm_community$typed_svg$TypedSvg$Core$attribute,
-		'y1',
-		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(position));
-};
-var $elm_community$typed_svg$TypedSvg$Attributes$InPx$y1 = function (value) {
-	return $elm_community$typed_svg$TypedSvg$Attributes$y1(
-		$elm_community$typed_svg$TypedSvg$Types$px(value));
-};
-var $elm_community$typed_svg$TypedSvg$Attributes$y2 = function (position) {
-	return A2(
-		$elm_community$typed_svg$TypedSvg$Core$attribute,
-		'y2',
-		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(position));
-};
-var $elm_community$typed_svg$TypedSvg$Attributes$InPx$y2 = function (value) {
-	return $elm_community$typed_svg$TypedSvg$Attributes$y2(
-		$elm_community$typed_svg$TypedSvg$Types$px(value));
-};
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$Render$lineToSvg = function (line) {
-	var _v0 = line;
-	var start = _v0.start;
-	var end = _v0.end;
-	var lineWidth = _v0.lineWidth;
-	var lineColor = _v0.lineColor;
-	return A2(
-		$elm_community$typed_svg$TypedSvg$line,
-		_List_fromArray(
-			[
-				$elm_community$typed_svg$TypedSvg$Attributes$InPx$x1(start.a),
-				$elm_community$typed_svg$TypedSvg$Attributes$InPx$x2(end.a),
-				$elm_community$typed_svg$TypedSvg$Attributes$InPx$y1(start.b),
-				$elm_community$typed_svg$TypedSvg$Attributes$InPx$y2(end.b),
-				$elm_community$typed_svg$TypedSvg$Attributes$InPx$strokeWidth(lineWidth),
-				$elm_community$typed_svg$TypedSvg$Attributes$stroke(lineColor)
-			]),
-		_List_Nil);
-};
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$Core$Edges = F4(
-	function (minX, maxX, minY, maxY) {
-		return {maxX: maxX, maxY: maxY, minX: minX, minY: minY};
-	});
 var $elm$core$Basics$min = F2(
 	function (x, y) {
 		return (_Utils_cmp(x, y) < 0) ? x : y;
 	});
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$Core$lineEdges = function (_v0) {
-	var start = _v0.start;
-	var end = _v0.end;
-	var _v1 = start;
-	var startX = _v1.a;
-	var startY = _v1.b;
-	var _v2 = end;
-	var endX = _v2.a;
-	var endY = _v2.b;
-	var maxX = A2($elm$core$Basics$max, startX, endX);
-	var minX = A2($elm$core$Basics$min, startX, endX);
-	var maxY = A2($elm$core$Basics$max, startY, endY);
-	var minY = A2($elm$core$Basics$min, startY, endY);
-	return A4($mrdimosthenis$turtle_graphics$TurtleGraphics$Core$Edges, minX, maxX, minY, maxY);
+var $elm$core$List$minimum = function (list) {
+	if (list.b) {
+		var x = list.a;
+		var xs = list.b;
+		return $elm$core$Maybe$Just(
+			A3($elm$core$List$foldl, $elm$core$Basics$min, x, xs));
+	} else {
+		return $elm$core$Maybe$Nothing;
+	}
 };
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$Core$mergeEdges = F2(
-	function (a, b) {
-		return {
-			maxX: A2($elm$core$Basics$max, a.maxX, b.maxX),
-			maxY: A2($elm$core$Basics$max, a.maxY, b.maxY),
-			minX: A2($elm$core$Basics$min, a.minX, b.minX),
-			minY: A2($elm$core$Basics$min, a.minY, b.minY)
-		};
+var $elm$core$Tuple$second = function (_v0) {
+	var y = _v0.b;
+	return y;
+};
+var $elm$core$Maybe$withDefault = F2(
+	function (_default, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return value;
+		} else {
+			return _default;
+		}
 	});
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$Core$linesToEdges = function (lines) {
-	return A3(
-		$elm$core$List$foldl,
-		F2(
-			function (line, currentEdges) {
-				return A2(
-					$mrdimosthenis$turtle_graphics$TurtleGraphics$Core$mergeEdges,
-					currentEdges,
-					$mrdimosthenis$turtle_graphics$TurtleGraphics$Core$lineEdges(line));
-			}),
-		A4($mrdimosthenis$turtle_graphics$TurtleGraphics$Core$Edges, 0, 0, 0, 0),
+var $author$project$Drawing$computeBoundingBox = function (lines) {
+	var coords = A2(
+		$elm$core$List$concatMap,
+		function (line) {
+			return _List_fromArray(
+				[
+					_Utils_Tuple2(line.x1, line.y1),
+					_Utils_Tuple2(line.x2, line.y2)
+				]);
+		},
 		lines);
+	var xs = A2($elm$core$List$map, $elm$core$Tuple$first, coords);
+	var ys = A2($elm$core$List$map, $elm$core$Tuple$second, coords);
+	return {
+		maxX: A2(
+			$elm$core$Maybe$withDefault,
+			0,
+			$elm$core$List$maximum(xs)),
+		maxY: A2(
+			$elm$core$Maybe$withDefault,
+			0,
+			$elm$core$List$maximum(ys)),
+		minX: A2(
+			$elm$core$Maybe$withDefault,
+			0,
+			$elm$core$List$minimum(xs)),
+		minY: A2(
+			$elm$core$Maybe$withDefault,
+			0,
+			$elm$core$List$minimum(ys))
+	};
 };
-var $elm_community$typed_svg$TypedSvg$rect = $elm_community$typed_svg$TypedSvg$Core$node('rect');
-var $elm_community$typed_svg$TypedSvg$svg = $elm_community$typed_svg$TypedSvg$Core$node('svg');
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$Core$State = F4(
-	function (location, orientation, width, color) {
-		return {color: color, location: location, orientation: orientation, width: width};
-	});
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$Core$Line = F4(
-	function (start, end, lineWidth, lineColor) {
-		return {end: end, lineColor: lineColor, lineWidth: lineWidth, start: start};
-	});
-var $ianmackenzie$elm_geometry$Vector2d$components = function (_v0) {
-	var components_ = _v0.a;
-	return components_;
+var $elm$core$String$fromFloat = _String_fromNumber;
+var $elm$svg$Svg$Attributes$height = _VirtualDom_attribute('height');
+var $elm$svg$Svg$trustedNode = _VirtualDom_nodeNS('http://www.w3.org/2000/svg');
+var $elm$svg$Svg$line = $elm$svg$Svg$trustedNode('line');
+var $elm$svg$Svg$Attributes$stroke = _VirtualDom_attribute('stroke');
+var $elm$svg$Svg$Attributes$strokeWidth = _VirtualDom_attribute('stroke-width');
+var $elm$svg$Svg$Attributes$x1 = _VirtualDom_attribute('x1');
+var $elm$svg$Svg$Attributes$x2 = _VirtualDom_attribute('x2');
+var $elm$svg$Svg$Attributes$y1 = _VirtualDom_attribute('y1');
+var $elm$svg$Svg$Attributes$y2 = _VirtualDom_attribute('y2');
+var $author$project$Drawing$lineToSvg = function (l) {
+	return A2(
+		$elm$svg$Svg$line,
+		_List_fromArray(
+			[
+				$elm$svg$Svg$Attributes$x1(
+				$elm$core$String$fromFloat(l.x1)),
+				$elm$svg$Svg$Attributes$y1(
+				$elm$core$String$fromFloat(-l.y1)),
+				$elm$svg$Svg$Attributes$x2(
+				$elm$core$String$fromFloat(l.x2)),
+				$elm$svg$Svg$Attributes$y2(
+				$elm$core$String$fromFloat(-l.y2)),
+				$elm$svg$Svg$Attributes$stroke('black'),
+				$elm$svg$Svg$Attributes$strokeWidth('1')
+			]),
+		_List_Nil);
 };
+var $elm$core$Basics$cos = _Basics_cos;
 var $elm$core$Basics$pi = _Basics_pi;
 var $elm$core$Basics$degrees = function (angleInDegrees) {
 	return (angleInDegrees * $elm$core$Basics$pi) / 180;
 };
-var $ianmackenzie$elm_geometry$Geometry$Types$Vector2d = function (a) {
-	return {$: 'Vector2d', a: a};
+var $author$project$Drawing$normalizeAngle = function (angle) {
+	var remainder = angle - (360 * $elm$core$Basics$floor(angle / 360));
+	return (remainder < 0) ? (remainder + 360) : remainder;
 };
-var $ianmackenzie$elm_geometry$Vector2d$fromComponents = $ianmackenzie$elm_geometry$Geometry$Types$Vector2d;
-var $elm$core$Basics$cos = _Basics_cos;
 var $elm$core$Basics$sin = _Basics_sin;
-var $elm$core$Basics$fromPolar = function (_v0) {
-	var radius = _v0.a;
-	var theta = _v0.b;
-	return _Utils_Tuple2(
-		radius * $elm$core$Basics$cos(theta),
-		radius * $elm$core$Basics$sin(theta));
-};
-var $ianmackenzie$elm_geometry$Vector2d$fromPolarComponents = function (polarComponents_) {
-	return $ianmackenzie$elm_geometry$Vector2d$fromComponents(
-		$elm$core$Basics$fromPolar(polarComponents_));
-};
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$ColorShift$bound = function (x) {
-	return (x > 1) ? 1 : ((x < 0) ? 0 : x);
-};
-var $avh4$elm_color$Color$hsla = F4(
-	function (hue, sat, light, alpha) {
-		var _v0 = _Utils_Tuple3(hue, sat, light);
-		var h = _v0.a;
-		var s = _v0.b;
-		var l = _v0.c;
-		var m2 = (l <= 0.5) ? (l * (s + 1)) : ((l + s) - (l * s));
-		var m1 = (l * 2) - m2;
-		var hueToRgb = function (h__) {
-			var h_ = (h__ < 0) ? (h__ + 1) : ((h__ > 1) ? (h__ - 1) : h__);
-			return ((h_ * 6) < 1) ? (m1 + (((m2 - m1) * h_) * 6)) : (((h_ * 2) < 1) ? m2 : (((h_ * 3) < 2) ? (m1 + (((m2 - m1) * ((2 / 3) - h_)) * 6)) : m1));
-		};
-		var b = hueToRgb(h - (1 / 3));
-		var g = hueToRgb(h);
-		var r = hueToRgb(h + (1 / 3));
-		return A4($avh4$elm_color$Color$RgbaSpace, r, g, b, alpha);
-	});
-var $elm$core$Basics$isNaN = _Basics_isNaN;
-var $avh4$elm_color$Color$toHsla = function (_v0) {
-	var r = _v0.a;
-	var g = _v0.b;
-	var b = _v0.c;
-	var a = _v0.d;
-	var minColor = A2(
-		$elm$core$Basics$min,
-		r,
-		A2($elm$core$Basics$min, g, b));
-	var maxColor = A2(
-		$elm$core$Basics$max,
-		r,
-		A2($elm$core$Basics$max, g, b));
-	var l = (minColor + maxColor) / 2;
-	var s = _Utils_eq(minColor, maxColor) ? 0 : ((l < 0.5) ? ((maxColor - minColor) / (maxColor + minColor)) : ((maxColor - minColor) / ((2 - maxColor) - minColor)));
-	var h1 = _Utils_eq(maxColor, r) ? ((g - b) / (maxColor - minColor)) : (_Utils_eq(maxColor, g) ? (2 + ((b - r) / (maxColor - minColor))) : (4 + ((r - g) / (maxColor - minColor))));
-	var h2 = h1 * (1 / 6);
-	var h3 = $elm$core$Basics$isNaN(h2) ? 0 : ((h2 < 0) ? (h2 + 1) : h2);
-	return {alpha: a, hue: h3, lightness: l, saturation: s};
-};
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$ColorShift$increaseAlpha = F2(
-	function (x, color) {
-		var _v0 = $avh4$elm_color$Color$toHsla(color);
-		var hue = _v0.hue;
-		var saturation = _v0.saturation;
-		var lightness = _v0.lightness;
-		var alpha = _v0.alpha;
-		var newAlpha = $mrdimosthenis$turtle_graphics$TurtleGraphics$ColorShift$bound(alpha + x);
-		return A4($avh4$elm_color$Color$hsla, hue, saturation, lightness, newAlpha);
-	});
-var $avh4$elm_color$Color$rgba = F4(
-	function (r, g, b, a) {
-		return A4($avh4$elm_color$Color$RgbaSpace, r, g, b, a);
-	});
-var $avh4$elm_color$Color$toRgba = function (_v0) {
-	var r = _v0.a;
-	var g = _v0.b;
-	var b = _v0.c;
-	var a = _v0.d;
-	return {alpha: a, blue: b, green: g, red: r};
-};
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$ColorShift$increaseBlue = F2(
-	function (x, color) {
-		var _v0 = $avh4$elm_color$Color$toRgba(color);
-		var red = _v0.red;
-		var green = _v0.green;
-		var blue = _v0.blue;
-		var alpha = _v0.alpha;
-		var newBlue = $mrdimosthenis$turtle_graphics$TurtleGraphics$ColorShift$bound(blue + x);
-		return A4($avh4$elm_color$Color$rgba, red, green, newBlue, alpha);
-	});
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$ColorShift$increaseGreen = F2(
-	function (x, color) {
-		var _v0 = $avh4$elm_color$Color$toRgba(color);
-		var red = _v0.red;
-		var green = _v0.green;
-		var blue = _v0.blue;
-		var alpha = _v0.alpha;
-		var newGreen = $mrdimosthenis$turtle_graphics$TurtleGraphics$ColorShift$bound(green + x);
-		return A4($avh4$elm_color$Color$rgba, red, newGreen, blue, alpha);
-	});
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$ColorShift$increaseLightness = F2(
-	function (x, color) {
-		var _v0 = $avh4$elm_color$Color$toHsla(color);
-		var hue = _v0.hue;
-		var saturation = _v0.saturation;
-		var lightness = _v0.lightness;
-		var alpha = _v0.alpha;
-		var newLightness = $mrdimosthenis$turtle_graphics$TurtleGraphics$ColorShift$bound(lightness + x);
-		return A4($avh4$elm_color$Color$hsla, hue, saturation, newLightness, alpha);
-	});
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$ColorShift$increaseRed = F2(
-	function (x, color) {
-		var _v0 = $avh4$elm_color$Color$toRgba(color);
-		var red = _v0.red;
-		var green = _v0.green;
-		var blue = _v0.blue;
-		var alpha = _v0.alpha;
-		var newRed = $mrdimosthenis$turtle_graphics$TurtleGraphics$ColorShift$bound(red + x);
-		return A4($avh4$elm_color$Color$rgba, newRed, green, blue, alpha);
-	});
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$ColorShift$increaseSaturation = F2(
-	function (x, color) {
-		var _v0 = $avh4$elm_color$Color$toHsla(color);
-		var hue = _v0.hue;
-		var saturation = _v0.saturation;
-		var lightness = _v0.lightness;
-		var alpha = _v0.alpha;
-		var newSaturation = $mrdimosthenis$turtle_graphics$TurtleGraphics$ColorShift$bound(saturation + x);
-		return A4($avh4$elm_color$Color$hsla, hue, newSaturation, lightness, alpha);
-	});
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$ColorShift$rotate = function (x) {
-	return (x > 1) ? (x - 1) : ((x < 0) ? (x + 1) : x);
-};
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$ColorShift$rotateHue = F2(
-	function (x, color) {
-		var _v0 = $avh4$elm_color$Color$toHsla(color);
-		var hue = _v0.hue;
-		var saturation = _v0.saturation;
-		var lightness = _v0.lightness;
-		var alpha = _v0.alpha;
-		var newHue = $mrdimosthenis$turtle_graphics$TurtleGraphics$ColorShift$rotate(hue + x);
-		return A4($avh4$elm_color$Color$hsla, newHue, saturation, lightness, alpha);
-	});
-var $ianmackenzie$elm_geometry$Vector2d$sum = F2(
-	function (firstVector, secondVector) {
-		var _v0 = $ianmackenzie$elm_geometry$Vector2d$components(secondVector);
-		var x2 = _v0.a;
-		var y2 = _v0.b;
-		var _v1 = $ianmackenzie$elm_geometry$Vector2d$components(firstVector);
-		var x1 = _v1.a;
-		var y1 = _v1.b;
-		return $ianmackenzie$elm_geometry$Vector2d$fromComponents(
-			_Utils_Tuple2(x1 + x2, y1 + y2));
-	});
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$Core$iterate = function (_v0) {
-	var state = _v0.a;
-	var commands = _v0.b;
-	return A3(
-		$elm$core$List$foldl,
-		F2(
-			function (command, _v1) {
-				var currentState = _v1.a;
-				var location = currentState.location;
-				var orientation = currentState.orientation;
-				var width = currentState.width;
-				var color = currentState.color;
-				var lines = _v1.b;
-				switch (command.$) {
-					case 'Move':
-						var x = command.a;
-						var newState = _Utils_update(
-							currentState,
-							{
-								location: $ianmackenzie$elm_geometry$Vector2d$components(
-									A2(
-										$ianmackenzie$elm_geometry$Vector2d$sum,
-										$ianmackenzie$elm_geometry$Vector2d$fromComponents(location),
-										$ianmackenzie$elm_geometry$Vector2d$fromPolarComponents(
-											_Utils_Tuple2(x, orientation))))
-							});
-						return _Utils_Tuple2(
-							newState,
-							A2(
-								$elm$core$List$cons,
-								A4($mrdimosthenis$turtle_graphics$TurtleGraphics$Core$Line, location, newState.location, width, color),
-								lines));
-					case 'Turn':
-						var a = command.a;
-						return _Utils_Tuple2(
-							_Utils_update(
-								currentState,
-								{
-									orientation: orientation - $elm$core$Basics$degrees(a)
-								}),
-							lines);
-					case 'IncreaseWidth':
-						var x = command.a;
-						return _Utils_Tuple2(
-							_Utils_update(
-								currentState,
-								{
-									width: A2($elm$core$Basics$max, 0, width + x)
-								}),
-							lines);
-					case 'RotateHue':
-						var x = command.a;
-						return _Utils_Tuple2(
-							_Utils_update(
-								currentState,
-								{
-									color: A2($mrdimosthenis$turtle_graphics$TurtleGraphics$ColorShift$rotateHue, x, color)
-								}),
-							lines);
-					case 'IncreaseSaturation':
-						var x = command.a;
-						return _Utils_Tuple2(
-							_Utils_update(
-								currentState,
-								{
-									color: A2($mrdimosthenis$turtle_graphics$TurtleGraphics$ColorShift$increaseSaturation, x, color)
-								}),
-							lines);
-					case 'IncreaseLightness':
-						var x = command.a;
-						return _Utils_Tuple2(
-							_Utils_update(
-								currentState,
-								{
-									color: A2($mrdimosthenis$turtle_graphics$TurtleGraphics$ColorShift$increaseLightness, x, color)
-								}),
-							lines);
-					case 'IncreaseAlpha':
-						var x = command.a;
-						return _Utils_Tuple2(
-							_Utils_update(
-								currentState,
-								{
-									color: A2($mrdimosthenis$turtle_graphics$TurtleGraphics$ColorShift$increaseAlpha, x, color)
-								}),
-							lines);
-					case 'IncreaseRed':
-						var x = command.a;
-						return _Utils_Tuple2(
-							_Utils_update(
-								currentState,
-								{
-									color: A2($mrdimosthenis$turtle_graphics$TurtleGraphics$ColorShift$increaseRed, x, color)
-								}),
-							lines);
-					case 'IncreaseGreen':
-						var x = command.a;
-						return _Utils_Tuple2(
-							_Utils_update(
-								currentState,
-								{
-									color: A2($mrdimosthenis$turtle_graphics$TurtleGraphics$ColorShift$increaseGreen, x, color)
-								}),
-							lines);
-					case 'IncreaseBlue':
-						var x = command.a;
-						return _Utils_Tuple2(
-							_Utils_update(
-								currentState,
-								{
-									color: A2($mrdimosthenis$turtle_graphics$TurtleGraphics$ColorShift$increaseBlue, x, color)
-								}),
-							lines);
-					default:
-						var branchCommands = command.a;
-						var branchedLines = $mrdimosthenis$turtle_graphics$TurtleGraphics$Core$iterate(
-							_Utils_Tuple2(currentState, branchCommands)).b;
-						return _Utils_Tuple2(
-							currentState,
-							$elm$core$List$concat(
-								_List_fromArray(
-									[branchedLines, lines])));
-				}
-			}),
-		_Utils_Tuple2(state, _List_Nil),
-		commands);
-};
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$Core$toLines = function (command) {
-	return $elm$core$List$reverse(
-		$mrdimosthenis$turtle_graphics$TurtleGraphics$Core$iterate(
-			_Utils_Tuple2(
-				A4(
-					$mrdimosthenis$turtle_graphics$TurtleGraphics$Core$State,
-					_Utils_Tuple2(0, 0),
-					0,
-					1,
-					$avh4$elm_color$Color$black),
-				_List_fromArray(
-					[command]))).b);
-};
-var $elm_community$typed_svg$TypedSvg$Attributes$width = function (length) {
-	return A2(
-		$elm_community$typed_svg$TypedSvg$Core$attribute,
-		'width',
-		$elm_community$typed_svg$TypedSvg$TypesToStrings$lengthToString(length));
-};
-var $elm_community$typed_svg$TypedSvg$Attributes$InPx$width = function (value) {
-	return $elm_community$typed_svg$TypedSvg$Attributes$width(
-		$elm_community$typed_svg$TypedSvg$Types$px(value));
-};
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$Render$render = F2(
-	function (color, command) {
-		var lines = $mrdimosthenis$turtle_graphics$TurtleGraphics$Core$toLines(command);
-		var edges = $mrdimosthenis$turtle_graphics$TurtleGraphics$Core$linesToEdges(lines);
-		var minX = edges.minX;
-		var maxX = edges.maxX;
-		var minY = edges.minY;
-		var maxY = edges.maxY;
-		var width = maxX - minX;
-		var height = maxY - minY;
-		return A2(
-			$elm_community$typed_svg$TypedSvg$svg,
-			_List_fromArray(
-				[
-					$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(width),
-					$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(height)
-				]),
-			A2(
-				$elm$core$List$cons,
-				A2(
-					$elm_community$typed_svg$TypedSvg$rect,
+var $author$project$Drawing$processInstruction = F2(
+	function (instruction, turtle) {
+		switch (instruction.$) {
+			case 'Forward':
+				var distance = instruction.a;
+				var angleRad = $elm$core$Basics$degrees(turtle.angle);
+				var dx = distance * $elm$core$Basics$cos(angleRad);
+				var newX = turtle.x + dx;
+				var dy = distance * $elm$core$Basics$sin(angleRad);
+				var newY = turtle.y + dy;
+				var newLine = {x1: turtle.x, x2: newX, y1: turtle.y, y2: newY};
+				return _Utils_Tuple2(
 					_List_fromArray(
-						[
-							$elm_community$typed_svg$TypedSvg$Attributes$fill(
-							$elm_community$typed_svg$TypedSvg$Types$Fill(color)),
-							$elm_community$typed_svg$TypedSvg$Attributes$InPx$width(width),
-							$elm_community$typed_svg$TypedSvg$Attributes$InPx$height(height)
-						]),
-					_List_Nil),
-				A2(
-					$elm$core$List$map,
-					$mrdimosthenis$turtle_graphics$TurtleGraphics$Render$lineToSvg,
-					A2($mrdimosthenis$turtle_graphics$TurtleGraphics$Core$adjustLinesToEdges, edges, lines))));
+						[newLine]),
+					_Utils_update(
+						turtle,
+						{x: newX, y: newY}));
+			case 'LeftTurn':
+				var degrees = instruction.a;
+				return _Utils_Tuple2(
+					_List_Nil,
+					_Utils_update(
+						turtle,
+						{
+							angle: $author$project$Drawing$normalizeAngle(turtle.angle - degrees)
+						}));
+			case 'RightTurn':
+				var degrees = instruction.a;
+				return _Utils_Tuple2(
+					_List_Nil,
+					_Utils_update(
+						turtle,
+						{
+							angle: $author$project$Drawing$normalizeAngle(turtle.angle + degrees)
+						}));
+			default:
+				var n = instruction.a;
+				var children = instruction.b;
+				var loop = F3(
+					function (i, currentTurtle, accLines) {
+						loop:
+						while (true) {
+							if (i <= 0) {
+								return _Utils_Tuple2(accLines, currentTurtle);
+							} else {
+								var _v3 = A3($author$project$Drawing$processInstructions, children, currentTurtle, _List_Nil);
+								var childLines = _v3.a;
+								var childTurtle = _v3.b;
+								var $temp$i = i - 1,
+									$temp$currentTurtle = childTurtle,
+									$temp$accLines = _Utils_ap(accLines, childLines);
+								i = $temp$i;
+								currentTurtle = $temp$currentTurtle;
+								accLines = $temp$accLines;
+								continue loop;
+							}
+						}
+					});
+				var _v4 = A3(loop, n, turtle, _List_Nil);
+				var repeatedLines = _v4.a;
+				var newTurtle = _v4.b;
+				return _Utils_Tuple2(repeatedLines, newTurtle);
+		}
 	});
-var $mrdimosthenis$turtle_graphics$TurtleGraphics$render = $mrdimosthenis$turtle_graphics$TurtleGraphics$Render$render;
+var $author$project$Drawing$processInstructions = F3(
+	function (instructions, turtle, lines) {
+		processInstructions:
+		while (true) {
+			if (!instructions.b) {
+				return _Utils_Tuple2(lines, turtle);
+			} else {
+				var instr = instructions.a;
+				var rest = instructions.b;
+				var _v1 = A2($author$project$Drawing$processInstruction, instr, turtle);
+				var newLines = _v1.a;
+				var newTurtle = _v1.b;
+				var $temp$instructions = rest,
+					$temp$turtle = newTurtle,
+					$temp$lines = _Utils_ap(lines, newLines);
+				instructions = $temp$instructions;
+				turtle = $temp$turtle;
+				lines = $temp$lines;
+				continue processInstructions;
+			}
+		}
+	});
+var $elm$svg$Svg$svg = $elm$svg$Svg$trustedNode('svg');
+var $elm$svg$Svg$Attributes$viewBox = _VirtualDom_attribute('viewBox');
+var $elm$svg$Svg$Attributes$width = _VirtualDom_attribute('width');
 var $author$project$Drawing$display = function (instructions) {
-	var commands = A2($elm$core$List$concatMap, $author$project$Drawing$instructionToCommands, instructions);
-	var combinedCommand = $mrdimosthenis$turtle_graphics$TurtleGraphics$branch(commands);
-	return A2($mrdimosthenis$turtle_graphics$TurtleGraphics$render, $avh4$elm_color$Color$black, combinedCommand);
+	var padding = 10;
+	var initialTurtle = {angle: 0, x: 0, y: 0};
+	var _v0 = A3($author$project$Drawing$processInstructions, instructions, initialTurtle, _List_Nil);
+	var lines = _v0.a;
+	var bbox = $author$project$Drawing$computeBoundingBox(lines);
+	var svgMaxX = bbox.maxX + padding;
+	var svgMaxY = (-bbox.minY) + padding;
+	var svgMinX = bbox.minX - padding;
+	var svgMinY = (-bbox.maxY) - padding;
+	var viewBoxStr = $elm$core$String$fromFloat(svgMinX) + (' ' + ($elm$core$String$fromFloat(svgMinY) + (' ' + ($elm$core$String$fromFloat(svgMaxX - svgMinX) + (' ' + $elm$core$String$fromFloat(svgMaxY - svgMinY))))));
+	return A2(
+		$elm$svg$Svg$svg,
+		_List_fromArray(
+			[
+				$elm$svg$Svg$Attributes$viewBox(viewBoxStr),
+				$elm$svg$Svg$Attributes$width('500'),
+				$elm$svg$Svg$Attributes$height('500')
+			]),
+		A2($elm$core$List$map, $author$project$Drawing$lineToSvg, lines));
 };
 var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {

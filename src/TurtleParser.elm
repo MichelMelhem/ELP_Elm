@@ -85,7 +85,7 @@ forwardParser =
 leftParser : Parser Instruction
 leftParser =
     succeed LeftTurn
-        |. token "Left"
+        |. token "LeftTurn"
         |. spaces
         |= int
 
@@ -97,7 +97,7 @@ leftParser =
 rightParser : Parser Instruction
 rightParser =
     succeed RightTurn
-        |. token "Right"
+        |. token "RightTurn"
         |. spaces
         |= int
 
