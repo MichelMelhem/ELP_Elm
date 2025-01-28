@@ -5,7 +5,7 @@ import Parser exposing (..)
 
 
 
--- Entry point for parsing a program
+-- Point d'entrée pour analyser un programme
 
 
 read : String -> Result (List DeadEnd) (List Instruction)
@@ -14,7 +14,7 @@ read input =
 
 
 
--- Top-level parser for a list of instructions
+-- Analyseur principal pour une liste d'instructions
 
 
 programParser : Parser (List Instruction)
@@ -23,7 +23,7 @@ programParser =
 
 
 
--- Parser for a single instruction
+-- Analyseur pour une seule instruction
 
 
 instructionParser : Parser Instruction
@@ -37,7 +37,7 @@ instructionParser =
 
 
 
--- Parser for the "Repeat" instruction
+-- Analyseur pour l'instruction "Repeat"
 
 
 repeatParser : Parser Instruction
@@ -51,7 +51,7 @@ repeatParser =
 
 
 
--- Parser for a list of items within brackets
+-- Analyseur pour une liste d'éléments entourés de crochets
 
 
 bracketed : Parser a -> Parser (List a)
@@ -67,7 +67,7 @@ bracketed p =
 
 
 
--- Parser for the "Forward" instruction
+-- Analyseur pour l'instruction "Forward"
 
 
 forwardParser : Parser Instruction
@@ -79,7 +79,7 @@ forwardParser =
 
 
 
--- Parser for the "Left" instruction
+-- Analyseur pour l'instruction "LeftTurn"
 
 
 leftParser : Parser Instruction
@@ -91,7 +91,7 @@ leftParser =
 
 
 
--- Parser for the "Right" instruction
+-- Analyseur pour l'instruction "RightTurn"
 
 
 rightParser : Parser Instruction
@@ -103,7 +103,7 @@ rightParser =
 
 
 
--- Parser for spaces and tabs
+-- Analyseur pour les espaces et les tabulations
 
 
 spaces : Parser ()
