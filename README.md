@@ -12,16 +12,10 @@ Vous pouvez dessiner des figures en utilisant les instructions suivantes :
 
 ### Exemple d'entrée
 
-Voici un exemple d'instructions permettant de dessiner une figure :
+Voici un exemple d'instructions permettant de dessiner une figure  :
 
-```elm
-[
-  Repeat 2 [Forward 100, LeftTurn 90, Forward 50, LeftTurn 90],
-  Forward 20,
-  Repeat 36 [Forward 5, RightTurn 10],
-  Forward 60,
-  Repeat 36 [Forward 5, RightTurn 10]
-]
+```
+[Repeat 2 [Forward 100, LeftTurn 90, Forward 50, LeftTurn 90], Forward 20, Repeat 36 [Forward 5, RightTurn 10], Forward 60, Repeat 36 [Forward 5, RightTurn 10]]
 ```
 
 Ce projet se compile à partir du fichier Main.elm en utilisant la commande :
